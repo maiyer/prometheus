@@ -8,14 +8,6 @@ route:
   repeat_interval: 1h
   receiver: 'pagerduty.alert'
 
-#routes:
-#  service: 'prometheus'
-#  receiver: 'pagerduty.alert'
-
-#routes:
-#  severity: 'critical'
-#  receiver: 'pagerduty.alert'
-
 receivers:
  - name: 'pagerduty.alert'
    pagerduty_configs:
