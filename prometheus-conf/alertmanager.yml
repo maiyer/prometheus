@@ -1,0 +1,41 @@
+global:
+  resolve_timeout: 10m
+
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 30s
+  group_interval: 3m
+  repeat_interval: 1h
+#  receiver: 'pagerduty.alert'
+  receiver: 'slack.alert'
+
+#routes:
+#  service: 'prometheus'
+#  receiver: 'pagerduty.alert'
+
+#routes:
+#  severity: 'critical'
+#  receiver: 'pagerduty.alert'
+
+#receivers:
+# - name: 'pagerduty.alert'
+#   pagerduty_configs:
+#   - service_key: 0c60dd9491714a69b5139b1d26d47bb0
+
+receivers:
+ - name: 'slack.alert'
+   slack_configs:
+   - api_url: 'https://hooks.slack.com/services/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'
+     channel: '#prometheus-alert'
+
+#receivers:
+#- name: 'web.hook'
+#  webhook_configs:
+#  - url: 'http://127.0.0.1:5001/'
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'cluster', 'service']
